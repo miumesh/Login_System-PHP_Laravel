@@ -22,3 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function(){
     return 'admin page';
 })->middleware(['auth','auth.admin']);
+
+Route::namespace('Admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+    Route::resource('/admin/users', 'UserController',['except'=> ['show','create','store']]);
+});
